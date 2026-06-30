@@ -278,6 +278,8 @@ initDb().then(() => {
   });
 
   app.get('/api/conversations/:id/messages', authenticateToken, (req, res) => {
+    const conv = dbGet('SELECT id FROM conversations WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
+    if (!conv) return res.status(404).json({ error: 'Conversation not found' });
     const msgs = dbAll('SELECT * FROM messages WHERE conversation_id = ? ORDER BY created_at ASC', [req.params.id]);
     res.json(msgs);
   });
