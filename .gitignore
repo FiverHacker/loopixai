@@ -1,0 +1,5 @@
+node_modules/
+client/dist/
+server/loopix.db
+.env
+*.log
